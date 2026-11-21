@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dream AI Studio</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#101323;color:#f7f7ff;font-family:Arial,sans-serif;padding:20px}
+main{max-width:620px;margin:auto}.brand{font-size:28px;font-weight:800;color:#a99cff;margin:12px 0}
+p{color:#c7c9dc;line-height:1.5}.panel{background:#1b2036;border:1px solid #343b5b;border-radius:18px;padding:16px;margin:16px 0}
+label{display:block;margin:12px 0 7px;color:#ddd}textarea,select{width:100%;padding:13px;border-radius:11px;border:1px solid #454d70;background:#10172a;color:white;font-size:16px}
+button{width:100%;padding:14px;border:0;border-radius:12px;background:#7968ed;color:white;font-size:16px;font-weight:bold;margin-top:12px}
+.secondary{background:#343b5b}.note{font-size:13px;color:#aeb4ce}
+</style></head>
+<body><main>
+<div class="brand">✨ Dream AI Studio</div>
+<p>বাংলায় গল্প ও ভিডিওর প্রম্পট তৈরি করুন, বাংলা ভয়েস শুনুন, তারপর ক্লাউড ভিডিও স্টুডিও খুলুন।</p>
+<section class="panel">
+<label for="idea">আপনার গল্প বা ভিডিওর ধারণা</label>
+<textarea id="idea" rows="5" placeholder="যেমন: একটি ছোট্ট আলু আর গাজরের বন্ধুত্বের গল্প..."></textarea>
+<label for="style">ভিডিওর ধরন</label>
+<select id="style"><option>3D Cartoon</option><option>Islamic Story</option><option>Realistic Cinematic</option><option>Kids Funny Story</option></select>
+<label for="voice">ভয়েস</label>
+<select id="voice"><option>বাংলা ভয়েস</option><option>পুরুষ কণ্ঠ (ডিভাইস সমর্থিত হলে)</option><option>নারী কণ্ঠ (ডিভাইস সমর্থিত হলে)</option></select>
+<button onclick="makePrompt()">প্রফেশনাল প্রম্পট তৈরি</button>
+<label for="output">তৈরি করা প্রম্পট</label>
+<textarea id="output" rows="7" placeholder="আপনার প্রম্পট এখানে আসবে"></textarea>
+<button class="secondary" onclick="copyPrompt()">কপি করুন</button>
+<button class="secondary" onclick="speakPrompt()">বাংলা ভয়েসে শুনুন</button>
+<button onclick="openStudio()">ক্লাউড AI ভিডিও স্টুডিও খুলুন</button>
+<p class="note">নোট: এই অ্যাপটি প্রম্পট ও বাংলা Text-to-Speech সহায়ক। ভিডিও তৈরি করতে বাহ্যিক ক্লাউড সেবা খুলবে; তাদের ফ্রি ব্যবহারের সীমা ও অ্যাকাউন্টের নিয়ম প্রযোজ্য।</p>
+</section></main>
+<script>
+function makePrompt(){
+ const idea=document.getElementById('idea').value.trim();
+ const style=document.getElementById('style').value;
+ if(!idea){alert('আগে গল্পের ধারণা লিখুন');return;}
+ document.getElementById('output').value=style+' video, high quality, expressive characters, smooth animation, cinematic lighting, clear scene composition. Story: '+idea+' Create natural Bengali dialogue and keep character appearance consistent.';
+}
+function copyPrompt(){
+ const t=document.getElementById('output');t.select();document.execCommand('copy');alert('প্রম্পট কপি হয়েছে');
+}
+function speakPrompt(){
+ const t=document.getElementById('output').value;
+ if(!t){alert('আগে প্রম্পট তৈরি করুন');return;}
+ if(window.Dream) Dream.speak(t); else alert('এই ডিভাইসে ভয়েস চালু নেই');
+}
+function openStudio(){if(window.Dream)Dream.openVideoStudio();}
+</script></body></html>
